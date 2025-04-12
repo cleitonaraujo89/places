@@ -27,7 +27,7 @@ class PlacesListScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
-        child: CircularProgressIndicator.adaptive(),
+        child: Text('OK!'), //CircularProgressIndicator.adaptive(),
       ),
     );
   }
