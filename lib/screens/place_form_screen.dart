@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import '../widgets/image_input.dart';
 
@@ -11,12 +13,15 @@ class PlaceFormScreen extends StatefulWidget {
 }
 
 class _PlaceFormScreenState extends State<PlaceFormScreen> {
-
   final _titleController = TextEditingController();
+  // ignore: unused_field
+  File? _pickedImage;
 
-  void _submitForm(){
-
+  void _selectedImage(File pickedImage) {
+    _pickedImage = pickedImage;
   }
+
+  void _submitForm() {}
 
   @override
   void dispose() {
@@ -49,7 +54,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                       controller: _titleController,
                     ),
                     SizedBox(height: 10),
-                    ImageInput(),
+                    ImageInput(_selectedImage),
                   ],
                 ),
               ),
@@ -64,7 +69,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
               backgroundColor: Colors.amber,
               elevation: 0,
               shape: RoundedRectangleBorder(),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap, 
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
           ),
         ],
