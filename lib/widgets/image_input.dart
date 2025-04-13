@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart' as syspaths;
 
 class ImageInput extends StatefulWidget {
   const ImageInput(this.onSelectedImage, {super.key});
@@ -18,17 +18,28 @@ class _ImageInputState extends State<ImageInput> {
   File? _storedImage;
 
   Future<void> _takePicture() async {
+    //instancia responsavel por capturar ou selecionar da galeria
     final ImagePicker picker = ImagePicker();
+    // recebe a imagem que vem da camera com tamanho máximo limitado
     final XFile? imageFile =
         await picker.pickImage(source: ImageSource.camera, maxWidth: 600);
 
+    //chega se o usuario bateu a foto ou voltou sem terminar
     if (imageFile == null) return;
 
+    //atualiza para amostrar a imagem no preview, neste momento a imagem está no cache
     setState(() {
       _storedImage = File(imageFile.path);
     });
 
-    //Widget.onSelectedImage();
+    //pega o diretório (o caminho) aonde o app guarda arquivos de forma persistente
+    final appDir = await syspaths.getApplicationDocumentsDirectory();
+    //separa apenas o nome do arquivo do path de _storedImage
+    String fileName = path.basename(_storedImage!.path);
+    //salva uma cópia do arquivo dentro do diretório com o nome do arquivo
+    final savadeImage = await _storedImage!.copy('${appDir.path}/$fileName');
+    //chama a função do widget pai enviando o arquivo
+    widget.onSelectedImage(savadeImage);
   }
 
   @override

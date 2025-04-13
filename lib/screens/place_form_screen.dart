@@ -21,7 +21,12 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
     _pickedImage = pickedImage;
   }
 
-  void _submitForm() {}
+  void _submitForm() {
+    if (_titleController.text.isEmpty || _pickedImage == null) {
+      return;
+    }
+    Navigator.of(context).pop();
+  }
 
   @override
   void dispose() {
@@ -50,8 +55,9 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                     TextField(
                       decoration: InputDecoration(
                         labelText: 'Titulo',
-                      ),
+                      ),                      
                       controller: _titleController,
+                      
                     ),
                     SizedBox(height: 10),
                     ImageInput(_selectedImage),
