@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:places/providers/great_places.dart';
 import 'package:provider/provider.dart';
+import '../providers/great_places.dart';
+import '../widgets/location_input.dart';
 import '../widgets/image_input.dart';
 
 class PlaceFormScreen extends StatefulWidget {
@@ -65,6 +65,8 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                     ),
                     SizedBox(height: 10),
                     ImageInput(_selectedImage),
+                    SizedBox(height: 10),
+                    LocationInput(),
                   ],
                 ),
               ),
