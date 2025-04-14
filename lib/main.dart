@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:places/providers/great_places.dart';
 import 'package:places/screens/place_form_screen.dart';
 import 'package:places/utils/app_routes.dart';
+import 'package:provider/provider.dart';
 import 'screens/places_list_screen.dart';
 
 void main() {
@@ -15,18 +17,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Great Places',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
-        useMaterial3: true,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return ChangeNotifierProvider(
+      create: (context) => GreatPlaces(),
+      child: MaterialApp(
+        title: 'Great Places',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+          useMaterial3: true,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: PlacesListScreen(),
+        routes: {
+          AppRoutes.PLACE_FORM: (ctx) => PlaceFormScreen(),
+        },
       ),
-      home: PlacesListScreen(),
-      routes: {
-        AppRoutes.PLACE_FORM: (ctx) => PlaceFormScreen(),
-      },
     );
   }
 }

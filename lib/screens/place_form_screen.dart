@@ -3,6 +3,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:places/providers/great_places.dart';
+import 'package:provider/provider.dart';
 import '../widgets/image_input.dart';
 
 class PlaceFormScreen extends StatefulWidget {
@@ -25,6 +27,9 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
     if (_titleController.text.isEmpty || _pickedImage == null) {
       return;
     }
+
+    Provider.of<GreatPlaces>(context, listen: false)
+        .addPlace(_titleController.text, _pickedImage!);
     Navigator.of(context).pop();
   }
 
@@ -55,9 +60,8 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                     TextField(
                       decoration: InputDecoration(
                         labelText: 'Titulo',
-                      ),                      
+                      ),
                       controller: _titleController,
-                      
                     ),
                     SizedBox(height: 10),
                     ImageInput(_selectedImage),
