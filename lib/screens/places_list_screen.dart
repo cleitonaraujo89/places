@@ -43,7 +43,7 @@ class PlacesListScreen extends StatelessWidget {
                 ),
               ),
         child: Center(
-          child: Text('Apenas Testando'),
+          child: Text('Nenhum Local Cadastrado!'),
         ),
       ),
     );
