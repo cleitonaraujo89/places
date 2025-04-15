@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
+import 'package:places/utils/location_util.dart';
 
 class LocationInput extends StatefulWidget {
   const LocationInput({super.key});
@@ -11,6 +13,19 @@ class LocationInput extends StatefulWidget {
 
 class _LocationInputState extends State<LocationInput> {
   String? _previewImageUrl;
+
+  Future<void> _getCurrentUserLocation() async {
+    //pede a permissão para o usuario, caso ele negue gera um erro
+    final locData = await Location().getLocation();
+
+    //retorna uma string (URL) interpolada com as informações nescessárias para api gerar a imagem
+    final staticMapImageUrl = LocationUtil.generateLocationPreviewImage(latitude: locData.latitude, longitude: locData.longitude);
+
+    setState(() {
+      //passa a url e atualiza o estado para carregar a imagem
+      _previewImageUrl = staticMapImageUrl;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +53,14 @@ class _LocationInputState extends State<LocationInput> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton.icon(
-              onPressed: () {},
+              onPressed: _getCurrentUserLocation,
               label: Text(
                 'Localização Atual',
                 style: TextStyle(color: Theme.of(context).primaryColor),
               ),
               icon: Icon(Icons.location_on),
             ),
-             TextButton.icon(
+            TextButton.icon(
               onPressed: () {},
               label: Text(
                 'Selecione no mapa',
