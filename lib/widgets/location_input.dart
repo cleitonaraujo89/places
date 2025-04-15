@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:places/screens/map_screen.dart';
 import 'package:places/utils/location_util.dart';
 
 class LocationInput extends StatefulWidget {
@@ -19,11 +21,31 @@ class _LocationInputState extends State<LocationInput> {
     final locData = await Location().getLocation();
 
     //retorna uma string (URL) interpolada com as informações nescessárias para api gerar a imagem
-    final staticMapImageUrl = LocationUtil.generateLocationPreviewImage(latitude: locData.latitude, longitude: locData.longitude);
+    final staticMapImageUrl = LocationUtil.generateLocationPreviewImage(
+        latitude: locData.latitude, longitude: locData.longitude);
 
     setState(() {
       //passa a url e atualiza o estado para carregar a imagem
       _previewImageUrl = staticMapImageUrl;
+    });
+  }
+
+  Future<void> _selectOnMap() async {
+    final LatLng? selectedPosition = await Navigator.of(context).push(
+      MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (ctx) => MapScreen(),
+      ),
+    );
+
+    if (selectedPosition == null) {
+      return;
+    }
+
+    setState(() {
+      _previewImageUrl = LocationUtil.generateLocationPreviewImage(
+          latitude: selectedPosition.latitude,
+          longitude: selectedPosition.longitude);
     });
   }
 
@@ -61,7 +83,7 @@ class _LocationInputState extends State<LocationInput> {
               icon: Icon(Icons.location_on),
             ),
             TextButton.icon(
-              onPressed: () {},
+              onPressed: _selectOnMap,
               label: Text(
                 'Selecione no mapa',
                 style: TextStyle(color: Theme.of(context).primaryColor),
