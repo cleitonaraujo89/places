@@ -44,4 +44,6 @@ app.*.map.json
 
 # Configurações e chaves
 configs/
+android/gradle.properties
 
+ios/Runner/Base.lproj/api_key.swift
