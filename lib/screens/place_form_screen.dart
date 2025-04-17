@@ -2,6 +2,7 @@
 
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import '../providers/great_places.dart';
 import '../widgets/location_input.dart';
@@ -18,18 +19,34 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
   final _titleController = TextEditingController();
   // ignore: unused_field
   File? _pickedImage;
+  LatLng? _pickedPosition;
 
   void _selectedImage(File pickedImage) {
-    _pickedImage = pickedImage;
+    setState(() {
+      _pickedImage = pickedImage;      
+    });
+  }
+
+  void _selectedPosition(LatLng position) {
+    setState(() {
+      _pickedPosition = position;      
+    });
+  }
+
+  //validação simples
+  bool isValidForm() {
+    return _titleController.text.isNotEmpty &&
+        _pickedImage != null &&
+        _pickedPosition != null;
   }
 
   void _submitForm() {
-    if (_titleController.text.isEmpty || _pickedImage == null) {
+    if (!isValidForm()) {
       return;
     }
 
     Provider.of<GreatPlaces>(context, listen: false)
-        .addPlace(_titleController.text, _pickedImage!);
+        .addPlace(_titleController.text, _pickedImage!, _pickedPosition!);
     Navigator.of(context).pop();
   }
 
@@ -66,7 +83,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                     SizedBox(height: 10),
                     ImageInput(_selectedImage),
                     SizedBox(height: 10),
-                    LocationInput(),
+                    LocationInput(_selectedPosition),
                   ],
                 ),
               ),
@@ -74,7 +91,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
           ),
           SizedBox(height: 20),
           ElevatedButton.icon(
-            onPressed: _submitForm,
+            onPressed: isValidForm() ? _submitForm : null,
             label: Text('Adicionar'),
             icon: Icon(Icons.add),
             style: ElevatedButton.styleFrom(
