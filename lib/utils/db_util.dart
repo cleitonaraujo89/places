@@ -16,7 +16,7 @@ class DbUtil {
       // Esta função é executada apenas na criação do banco (primeira vez)
       onCreate: (db, version) {
         return db.execute(
-          'CREATE TABLE places (id TEXT PRIMARY KEY, title TEXT, image TEXT)',
+          'CREATE TABLE places (id TEXT PRIMARY KEY, title TEXT, image TEXT, latitude REAL, longitude REAL, address TEXT)',
         );
       },
       // Versão do banco — importante para futuras migrações
