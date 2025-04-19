@@ -1,9 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+
 import '../providers/great_places.dart';
 import '../widgets/location_input.dart';
 import '../widgets/image_input.dart';
@@ -17,7 +16,6 @@ class PlaceFormScreen extends StatefulWidget {
 
 class _PlaceFormScreenState extends State<PlaceFormScreen> {
   final _titleController = TextEditingController();
-  // ignore: unused_field
   File? _pickedImage;
   LatLng? _pickedPosition;
 
@@ -60,7 +58,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Novo Lugar'),
+        title: const Text('Novo Lugar'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -75,29 +73,29 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                 child: Column(
                   children: [
                     TextField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Titulo',
                       ),
                       controller: _titleController,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     ImageInput(_selectedImage),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     LocationInput(_selectedPosition),
                   ],
                 ),
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           ElevatedButton.icon(
             onPressed: isValidForm() ? _submitForm : null,
-            label: Text('Adicionar'),
-            icon: Icon(Icons.add),
+            label: const Text('Adicionar'),
+            icon: const Icon(Icons.add),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.amber,
               elevation: 0,
-              shape: RoundedRectangleBorder(),
+              shape: const RoundedRectangleBorder(),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
           ),

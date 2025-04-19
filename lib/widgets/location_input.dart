@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -53,7 +53,7 @@ class _LocationInputState extends State<LocationInput> {
     final LatLng? selectedPosition = await Navigator.of(context).push(
       MaterialPageRoute(
         fullscreenDialog: true,
-        builder: (ctx) => MapScreen(),
+        builder: (ctx) => const MapScreen(),
       ),
     );
 
@@ -73,12 +73,12 @@ class _LocationInputState extends State<LocationInput> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('Ops!'),
+        title: const Text('Ops!'),
         content: Text(message),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
-            child: Text('OK'),
+            child: const Text('OK'),
           ),
         ],
       ),
@@ -128,7 +128,7 @@ class _LocationInputState extends State<LocationInput> {
             ),
           ),
           child: _previewImageUrl == null
-              ? Text('Localização não informada')
+              ? const Text('Localização não informada')
               : Image.network(
                   _previewImageUrl!,
                   fit: BoxFit.cover,
@@ -144,7 +144,7 @@ class _LocationInputState extends State<LocationInput> {
                 'Localização Atual',
                 style: TextStyle(color: Theme.of(context).primaryColor),
               ),
-              icon: Icon(Icons.location_on),
+              icon: const Icon(Icons.location_on),
             ),
             TextButton.icon(
               onPressed: _selectOnMap,
@@ -152,7 +152,7 @@ class _LocationInputState extends State<LocationInput> {
                 'Selecione no mapa',
                 style: TextStyle(color: Theme.of(context).primaryColor),
               ),
-              icon: Icon(Icons.map),
+              icon: const Icon(Icons.map),
             )
           ],
         )

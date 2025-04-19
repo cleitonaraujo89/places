@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:places/providers/great_places.dart';
 import 'package:places/screens/place_detail_screen.dart';
@@ -15,7 +13,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -28,10 +25,10 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: PlacesListScreen(),
+        home: const PlacesListScreen(),
         routes: {
-          AppRoutes.PLACE_FORM: (ctx) => PlaceFormScreen(),
-          AppRoutes.PLACE_DETAIL: (ctx) => PlaceDetailScreen(),
+          AppRoutes.PLACE_FORM: (ctx) => const PlaceFormScreen(),
+          AppRoutes.PLACE_DETAIL: (ctx) => const PlaceDetailScreen(),
         },
       ),
     );

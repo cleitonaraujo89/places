@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:places/screens/map_screen.dart';
 
@@ -10,7 +8,10 @@ class PlaceDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    //recebe os argumentos
     Place place = ModalRoute.of(context)!.settings.arguments as Place;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(place.title),
@@ -26,13 +27,17 @@ class PlaceDetailScreen extends StatelessWidget {
               width: double.infinity,
             ),
           ),
+
           const SizedBox(height: 10),
+
           Text(
             place.location!.address!,
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 20, color: Colors.grey),
           ),
+
           const SizedBox(height: 10),
+
           TextButton.icon(
             onPressed: () {
               Navigator.of(context).push(
@@ -45,8 +50,8 @@ class PlaceDetailScreen extends StatelessWidget {
                 ),
               );
             },
-            label: Text('Ver o mapa'),
-            icon: Icon(Icons.map),
+            label: const Text('Ver o mapa'),
+            icon: const Icon(Icons.map),
             style: TextButton.styleFrom(foregroundColor: Colors.blue),
           ),
         ],

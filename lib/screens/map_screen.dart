@@ -1,12 +1,10 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:places/models/place.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen(
-      {this.initialLocation =
+      {super.key, this.initialLocation =
           const PlaceLocation(latitude: 37.419857, longitude: -122.078827),
       this.isReadOnly = false});
 
@@ -30,7 +28,7 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Selecione...'),
+        title: const Text('Selecione...'),
         actions: [
           //se readyOnly for falso e o user clicar no mapa ai aparece o icone, e quando o user
           //clica no icone fecha a telaretornando a posição escolhida
@@ -41,7 +39,7 @@ class _MapScreenState extends State<MapScreen> {
                     : () {
                         Navigator.of(context).pop(_pickedPosition);
                       },
-                icon: Icon(Icons.check))
+                icon: const Icon(Icons.check))
         ],
       ),
       body: GoogleMap(
@@ -60,7 +58,7 @@ class _MapScreenState extends State<MapScreen> {
             ? {}
             : {
                 Marker(
-                  markerId: MarkerId('p1'),
+                  markerId: const MarkerId('p1'),
                   position:
                       _pickedPosition ?? widget.initialLocation.toLatLng(),
                 ),

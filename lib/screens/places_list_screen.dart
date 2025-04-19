@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:places/providers/great_places.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +10,7 @@ class PlacesListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Meus Lugares',
           style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
         ),
@@ -21,7 +19,7 @@ class PlacesListScreen extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pushNamed(AppRoutes.PLACE_FORM);
             },
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
           )
         ],
         backgroundColor: Colors.indigo,
@@ -32,7 +30,7 @@ class PlacesListScreen extends StatelessWidget {
         future: Provider.of<GreatPlaces>(context, listen: false).loadPlaces(),
         builder: (context, snapshot) => snapshot.connectionState ==
                 ConnectionState.waiting
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator.adaptive(),
               )
             : Consumer<GreatPlaces>(
@@ -50,11 +48,15 @@ class PlacesListScreen extends StatelessWidget {
                           subtitle:
                               Text(greatPlaces.items[i].location!.address!),
                           onTap: () {
-                            Navigator.of(context).pushNamed(AppRoutes.PLACE_DETAIL, arguments: greatPlaces.items[i]);
+                            //ao toque vai para tela de detalhes levando o place como argumento
+                            Navigator.of(context).pushNamed(
+                              AppRoutes.PLACE_DETAIL,
+                              arguments: greatPlaces.items[i],
+                            );
                           },
                         ),
                       ),
-                child: Center(
+                child: const Center(
                   child: Text('Nenhum Local Cadastrado!'),
                 ),
               ),

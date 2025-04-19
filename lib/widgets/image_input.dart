@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -59,13 +58,13 @@ class _ImageInputState extends State<ImageInput> {
                   width: double.infinity,
                   fit: BoxFit.cover,
                 )
-              : Text('Nenhuma Imagem'),
+              : const Text('Nenhuma Imagem'),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Expanded(
           child: TextButton.icon(
             onPressed: _takePicture,
-            icon: Icon(Icons.camera),
+            icon: const Icon(Icons.camera),
             label: Text(
               'Tirar Foto',
               style: TextStyle(
