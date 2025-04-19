@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:places/screens/map_screen.dart';
 
 import '../models/place.dart';
 
@@ -30,7 +33,22 @@ class PlaceDetailScreen extends StatelessWidget {
             style: const TextStyle(fontSize: 20, color: Colors.grey),
           ),
           const SizedBox(height: 10),
-          
+          TextButton.icon(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (ctx) => MapScreen(
+                    isReadOnly: true,
+                    initialLocation: place.location!,
+                  ),
+                ),
+              );
+            },
+            label: Text('Ver o mapa'),
+            icon: Icon(Icons.map),
+            style: TextButton.styleFrom(foregroundColor: Colors.blue),
+          ),
         ],
       ),
     );

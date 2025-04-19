@@ -32,12 +32,20 @@ class _MapScreenState extends State<MapScreen> {
       appBar: AppBar(
         title: Text('Selecione...'),
         actions: [
-          if(!widget.isReadOnly) IconButton(onPressed: _pickedPosition == null ? null : (){
-            Navigator.of(context).pop(_pickedPosition);
-          }, icon: Icon(Icons.check))
+          //se readyOnly for falso e o user clicar no mapa ai aparece o icone, e quando o user
+          //clica no icone fecha a telaretornando a posição escolhida
+          if (!widget.isReadOnly)
+            IconButton(
+                onPressed: _pickedPosition == null
+                    ? null
+                    : () {
+                        Navigator.of(context).pop(_pickedPosition);
+                      },
+                icon: Icon(Icons.check))
         ],
       ),
       body: GoogleMap(
+        //define aonde a camera começa inicialmente
         initialCameraPosition: CameraPosition(
           target: LatLng(
             widget.initialLocation.latitude,
@@ -45,13 +53,16 @@ class _MapScreenState extends State<MapScreen> {
           ),
           zoom: 13,
         ),
+        //se o mapa nao for de somente leitura permite selecionar a posição, o ontap aqui
+        //no GoogleMap passa um LatLng contendo a Latitude e Longitude do local clicado
         onTap: widget.isReadOnly ? null : _selectPosition,
-        markers: _pickedPosition == null
+        markers: (_pickedPosition == null && !widget.isReadOnly)
             ? {}
             : {
                 Marker(
                   markerId: MarkerId('p1'),
-                  position: _pickedPosition!,
+                  position:
+                      _pickedPosition ?? widget.initialLocation.toLatLng(),
                 ),
               },
       ),
