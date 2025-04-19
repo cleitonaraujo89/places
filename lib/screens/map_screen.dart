@@ -4,7 +4,8 @@ import 'package:places/models/place.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen(
-      {super.key, this.initialLocation =
+      {super.key,
+      this.initialLocation =
           const PlaceLocation(latitude: 37.419857, longitude: -122.078827),
       this.isReadOnly = false});
 
@@ -26,20 +27,21 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.isReadOnly);
+    print('---------');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Selecione...'),
         actions: [
           //se readyOnly for falso e o user clicar no mapa ai aparece o icone, e quando o user
           //clica no icone fecha a telaretornando a posição escolhida
-          if (!widget.isReadOnly)
+          if (_pickedPosition != null)
             IconButton(
-                onPressed: _pickedPosition == null
-                    ? null
-                    : () {
-                        Navigator.of(context).pop(_pickedPosition);
-                      },
-                icon: const Icon(Icons.check))
+              onPressed: () {
+                Navigator.of(context).pop(_pickedPosition);
+              },
+              icon: const Icon(Icons.check),
+            )
         ],
       ),
       body: GoogleMap(
